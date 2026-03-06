@@ -2,22 +2,30 @@ node {
 
     stage('Clone Repository') {
         echo "Cloning repository..."
-        git 'https://github.com/sera-serenity/File-Encrypter.git'
+        git branch: 'main', url: 'https://github.com/sera-serenity/File-Encrypter.git'
     }
 
     stage('Build') {
-        echo "Building project..."
-        sh 'javac FileEncrypter.java'
+        echo "Building Java project..."
+
+        sh '''
+        cd "Password Protection"
+        mkdir -p build
+        javac -d build src/*.java
+        '''
     }
 
     stage('Test') {
-        echo "Running tests..."
-        sh 'echo Tests executed successfully'
+        echo "Testing application..."
+
+        sh '''
+        cd "Password Protection"
+        echo "Application compiled successfully"
+        '''
     }
 
     stage('Deploy') {
-        echo "Deploying application..."
-        sh 'echo Deployment successful'
+        echo "Deploy stage completed (demo)"
     }
 
 }
